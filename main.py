@@ -95,7 +95,7 @@ def start_image_object_detection():
         pass
 
 if __name__ == '__main__':
-    net = cv2.dnn.readNetFromDarknet("yolov4-tiny.cfg", "yolov4-tiny.weights")
+    net = cv2.dnn.readNetFromDarknet("yolov4-tiny.weights", "yolov4-tiny.cfg")
     layer_names = net.getLayerNames()
     out_layers_indexes = net.getUnconnectedOutLayers()
     out_layers = [layer_names[index[0] - 1] for index in out_layers_indexes]
