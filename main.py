@@ -94,6 +94,7 @@ def start_image_object_detection():
     except KeyboardInterrupt:
         pass
 
+
 if __name__ == '__main__':
     net = cv2.dnn.readNetFromDarknet("yolov4-tiny.weights", "yolov4-tiny.cfg")
     layer_names = net.getLayerNames()
