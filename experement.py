@@ -1,6 +1,6 @@
 import torch
 import pandas as pd
-import yaml
+# import yaml
 import torchvision
 
 # Model
