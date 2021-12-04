@@ -1,5 +1,6 @@
-import './App.css';
-import React, {useEffect, useState} from 'react';
+
+import './App.css'
+import React from 'react'
 import {useDropzone} from 'react-dropzone';
 
 const thumbsContainer = {
@@ -39,18 +40,26 @@ const img = {
 
 function App() {
 
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = React.useState([]);
   const {getRootProps, getInputProps} = useDropzone({
     onDrop: acceptedFiles => {
       setFiles(acceptedFiles.map(file => Object.assign(file, {
         preview: URL.createObjectURL(file)
       })));
+      
+      acceptedFiles.forEach(file => {
+        console.log(file)
+        var reader = new FileReader();
+        let result = reader.readAsDataURL(file);
+        console.log(result)
+      })
     }
   });
   
   const thumbs = files.map(file => (
     <div style={thumb} key={file.name}>
       <div style={thumbInner}>
+        {console.log(file)}
         <img
           src={file.preview}
           style={img}
@@ -59,7 +68,7 @@ function App() {
     </div>
   ));
 
-  useEffect(() => () => {
+  React.useEffect(() => () => {
     // Make sure to revoke the data uris to avoid memory leaks
     files.forEach(file => URL.revokeObjectURL(file.preview));
   }, [files]);
@@ -72,7 +81,7 @@ function App() {
               <h3>Команда</h3>
             </div>
             <div className="sponsor">
-              <img src='/croc.svg'></img>
+              <img src='croc.svg'/>
             </div>
         </div>
         <div className="main">
