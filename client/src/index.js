@@ -1,10 +1,8 @@
-require('es5-shim');
-require('es5-shim/es5-sham');
-require('console-polyfill');
-require('./index.css');
-const App = require('./App');
-const React = require('react');
-var ReactDOM = require('react-dom');
+
+import './index.css';
+import App from './App';
+import React from 'react';
+import ReactDOM from'react-dom';
 
 ReactDOM.render(
   <React.StrictMode>

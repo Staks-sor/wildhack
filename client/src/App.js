@@ -1,8 +1,7 @@
-require('es5-shim');
-require('es5-shim/es5-sham');
-require('./App.css');
-const React = require('react');
-const useDropzone = 'react-dropzone';
+
+import './App.css'
+import React from 'react'
+import {useDropzone} from 'react-dropzone';
 
 const thumbsContainer = {
   display: 'flex',
