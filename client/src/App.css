@@ -1,38 +1,119 @@
+body {
+  background: #eee;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #333;
+}
+h1,h2,h3,h4,h5,h6,p {
+  margin: 0;
+}
 .App {
+  min-height: 100vh;
+  position: relative;
+  width: 1024px;
+  padding: 20px 40px;
+  background: #fff;
+  margin: 0 auto;
+  box-shadow: 0 0 30px #bbb;
+  border-radius: 20px;
+}
+.header h3 {
+  line-height: 1;
+}
+.logo {
+  width: 200px;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.sponsor {
+  width: 200px;
+  right: 30px;
+  top: 30px;
+  position: absolute;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.sponsor img {
+  width: 100%;
+  height: auto;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.main {
+  padding: 40px 0;
 }
-
-.App-link {
-  color: #61dafb;
+.main_title {
+  font-size: 32px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 40px;
 }
+.dropzone {
+  cursor: pointer;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  text-align: center;
+  height: 200px;
+  padding: 40px;
+  font-size: 20px;
+}
+.dropzone:hover {
+  background: #ccc;
+}
+.upload button {
+  cursor: pointer;
+  margin-bottom: 30px;
+  width: 200px;
+  text-transform: uppercase;
+  padding: 16px;
+  font-size: 18px;
+  background: #585;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+}
+.upload button:hover {
+  background: #474;
+}
+.column {
+  padding: 20px;
+  cursor: pointer;
+  text-align: center;
+  width: 280px;
+  border-radius: 10px;
+}
+.result_preview {
+  position: relative;
+  min-height: 200px;
+}
+.success {
+  position: absolute;
+  border: 1px solid #383;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+}
+.success h3 {
+  color: #383 !important;
+
+}
+.warning {
+  left: 350px;
+  position: absolute;
+  border: 1px solid #b50;
+}
+.warning h3 {
+  color: #b50 !important;
+
+}
+.error {
+  left: 700px;
+  position: absolute;
+  border: 1px solid #a33;
+
+}
+.error h3 {
+  color: #a33 !important;
+
+}
+.toolbar {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.upload {
+  position: relative;
 }
