@@ -36,6 +36,7 @@ const img = {
 
 function App() {
 
+    const [count, setCount] = React.useState(0);
     const [work, setWork] = React.useState(false);
     const [files, setFiles] = React.useState([]);
     const [success, setSuccess] = React.useState([]);
@@ -122,7 +123,12 @@ function App() {
                         return res.json()
                     })
                     .then(json => {
+
                         console.log(json)
+
+                        setCount(count++)
+
+
                         if (+json.chance >= 0.45) {
                           setSuccess(prevstate => {
                             return [
@@ -197,20 +203,23 @@ function App() {
               </div>
               ) : (
                 <div className="result">
-                  
-                  <button onClick={handleBack}>Назад</button>
+                  {
+                    files?.length == count && (
+                      <button onClick={handleBack}>Назад</button>
+                    )
+                  }
                   <div className="main_title">
-                      Результат
+                      Результат (обработано {count} из {files?.length})
                   </div>
                   <div className="result_preview">
                       <div className={ type == 'success' ? "column success_checked" : "column success"} onClick={e => {setType('success')}}>
-                          <h3><i></i>Хорошие данные</h3>
+                          <h3><i></i>Хорошие данные ({success?.length})</h3>
                       </div >
                       <div className={ type == 'strange' ? "column warning_checked" : "column warning"} onClick={e => {setType('strange')}}>
-                          <h3><i></i>Спорные данные</h3>
+                          <h3><i></i>Спорные данные ({strange?.length})</h3>
                       </div>
                       <div className={ type == 'error' ? "column error_checked" : "column error"} onClick={e => {setType('error')}}>
-                          <h3><i></i>Плохие данные</h3>
+                          <h3><i></i>Плохие данные ({error?.length})</h3>
                       </div>
                           
                   </div>
@@ -222,8 +231,8 @@ function App() {
                               {
                                 success.map(item => (
                                   <div>
-                                    <img src={`http://localhost:8000/strange/${item?.filename}`}/>
-                                    <div className="chance success">Вероятность: {+item?.chance * 100}%</div>
+                                    <img src={`http://localhost:8000/good/${item?.filename}`}/>
+                                    <div className="chance success">Вероятность: {+item?.chance }</div>
                                   </div>
                                 ))
                               }
@@ -236,7 +245,7 @@ function App() {
                                   strange.map(item => (
                                     <div>
                                       <img src={`http://localhost:8000/strange/${item?.filename}`}/>
-                                      <div className="chance warning">Вероятность: {+item?.chance * 100}%</div>
+                                      <div className="chance warning">Вероятность: {+item?.chance }</div>
                                     </div>
                                   ))
                                 }
@@ -249,7 +258,7 @@ function App() {
                                   error.map(item => (
                                     <div>
                                       <img src={`http://localhost:8000/error/${item?.filename}`}/>
-                                      <div className="chance error">Вероятность: {+item?.chance * 100}%</div>
+                                      <div className="chance error">Вероятность: {+item?.chance }</div>
                                     </div>
                                   ))
                                 }
