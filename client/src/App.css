@@ -2,13 +2,13 @@ body {
   background: #eee;
   padding-top: 20px;
   padding-bottom: 20px;
-  color: #333;
 }
 h1,h2,h3,h4,h5,h6,p {
   margin: 0;
 }
 .App {
   min-height: 100vh;
+  color: #333;
   position: relative;
   width: 1024px;
   padding: 20px 40px;
@@ -41,7 +41,7 @@ h1,h2,h3,h4,h5,h6,p {
   font-size: 32px;
   text-align: center;
   font-weight: bold;
-  margin-bottom: 40px;
+  margin-top: 40px;
 }
 .dropzone {
   cursor: pointer;
@@ -55,7 +55,8 @@ h1,h2,h3,h4,h5,h6,p {
 .dropzone:hover {
   background: #ccc;
 }
-.upload button {
+button {
+  margin-top: 30px;
   cursor: pointer;
   margin-bottom: 30px;
   width: 200px;
@@ -78,36 +79,53 @@ h1,h2,h3,h4,h5,h6,p {
   border-radius: 10px;
 }
 .result_preview {
-  position: relative;
-  min-height: 200px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+.result h1 {
+  margin-bottom: 20px;
 }
 .success {
-  position: absolute;
   border: 1px solid #383;
+  color: #383;
+}
+.success:hover {
+  background:#383;
+  color: #fff; 
 
 }
-.success h3 {
-  color: #383 !important;
-
+.success_checked {
+  background:#383;
+  color: #fff; 
 }
 .warning {
-  left: 350px;
-  position: absolute;
   border: 1px solid #b50;
+  color: #b50;
 }
-.warning h3 {
-  color: #b50 !important;
+.warning:hover {
+  background:#b50;
+  color: #fff; 
 
+}
+.warning_checked {
+  background:#b50;
+  color: #fff; 
 }
 .error {
-  left: 700px;
-  position: absolute;
   border: 1px solid #a33;
+  color: #a33;
 
 }
-.error h3 {
-  color: #a33 !important;
+.error:hover {
+  background:#a33;
+  color: #fff; 
 
+}
+.error_checked {
+  background:#a33;
+  color: #fff; 
 }
 .toolbar {
   position: absolute;
@@ -116,4 +134,37 @@ h1,h2,h3,h4,h5,h6,p {
 }
 .upload {
   position: relative;
+}
+.result_images > div {
+  height: 200px;
+  border: 1px solid #ccc;
+  width: 30%;
+  margin-bottom: 60px;
+  position: relative;
+  border: 4px solid #fff;
+  cursor: pointer;
+}
+.result_images > div:hover {
+  border: 4px solid #00f;
+}
+
+.result_images {
+  display:flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.result_images img {
+  display:flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.chance {
+  position: absolute;
+  width: 200px;
+  bottom: -42px;
+  right: calc(50% - 120px);
+  padding: 10px 20px;
 }
