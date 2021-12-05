@@ -114,38 +114,38 @@ function App() {
 
                 formData.append('image', file)
 
-                // fetch(`http://localhost:8000/images`, {
-                //     method: "POST",
-                //     body: formData
-                // })
-                //     .then(res => {
-                //         return res.json()
-                //     })
-                //     .then(json => {
-                //         console.log(json)
-                //         if (+json.chance >= 0.45) {
-                //           setSuccess(prevstate => {
-                //             return [
-                //               ...prevstate,
-                //               json
-                //             ]
-                //           })                
-                //         } else if (+json.chance >= 0.25 && +json.chance < 0.45) {
-                //           setStrange(prevstate => {
-                //             return [
-                //               ...prevstate,
-                //               json
-                //             ]
-                //           })  
-                //         } else if (+json.chance < 0.25) {
-                //           setError(prevstate => {
-                //             return [
-                //               ...prevstate,
-                //               json
-                //             ]
-                //           })  
-                //         }
-                //     })
+                fetch(`http://localhost:8000/images`, {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(res => {
+                        return res.json()
+                    })
+                    .then(json => {
+                        console.log(json)
+                        if (+json.chance >= 0.45) {
+                          setSuccess(prevstate => {
+                            return [
+                              ...prevstate,
+                              json
+                            ]
+                          })
+                        } else if (+json.chance >= 0.25 && +json.chance < 0.45) {
+                          setStrange(prevstate => {
+                            return [
+                              ...prevstate,
+                              json
+                            ]
+                          })
+                        } else if (+json.chance < 0.25) {
+                          setError(prevstate => {
+                            return [
+                              ...prevstate,
+                              json
+                            ]
+                          })
+                        }
+                    })
             })
         } else {
           alert('Данные не загружены')
@@ -222,8 +222,8 @@ function App() {
                               {
                                 success.map(item => (
                                   <div>
-                                    <img src={`http://localhost:8000/strange/${item?.filename}`}/>
-                                    <div className="chance success">Вероятность: {+item?.chance * 100}%</div>
+                                    <img src={`http://localhost:8000/good/${item?.filename}`}/>
+                                    <div className="chance success">Вероятность: {+item?.chance}</div>
                                   </div>
                                 ))
                               }
@@ -236,7 +236,7 @@ function App() {
                                   strange.map(item => (
                                     <div>
                                       <img src={`http://localhost:8000/strange/${item?.filename}`}/>
-                                      <div className="chance warning">Вероятность: {+item?.chance * 100}%</div>
+                                      <div className="chance warning">Вероятность: {+item?.chance}</div>
                                     </div>
                                   ))
                                 }
@@ -249,7 +249,7 @@ function App() {
                                   error.map(item => (
                                     <div>
                                       <img src={`http://localhost:8000/error/${item?.filename}`}/>
-                                      <div className="chance error">Вероятность: {+item?.chance * 100}%</div>
+                                      <div className="chance error">Вероятность: {+item?.chance}</div>
                                     </div>
                                   ))
                                 }
