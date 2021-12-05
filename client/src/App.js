@@ -114,38 +114,38 @@ function App() {
 
                 formData.append('image', file)
 
-                // fetch(`http://localhost:8000/images`, {
-                //     method: "POST",
-                //     body: formData
-                // })
-                //     .then(res => {
-                //         return res.json()
-                //     })
-                //     .then(json => {
-                //         console.log(json)
-                //         if (+json.chance >= 0.45) {
-                //           setSuccess(prevstate => {
-                //             return [
-                //               ...prevstate,
-                //               json
-                //             ]
-                //           })                
-                //         } else if (+json.chance >= 0.25 && +json.chance < 0.45) {
-                //           setStrange(prevstate => {
-                //             return [
-                //               ...prevstate,
-                //               json
-                //             ]
-                //           })  
-                //         } else if (+json.chance < 0.25) {
-                //           setError(prevstate => {
-                //             return [
-                //               ...prevstate,
-                //               json
-                //             ]
-                //           })  
-                //         }
-                //     })
+                fetch(`http://localhost:8000/images`, {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(res => {
+                        return res.json()
+                    })
+                    .then(json => {
+                        console.log(json)
+                        if (+json.chance >= 0.45) {
+                          setSuccess(prevstate => {
+                            return [
+                              ...prevstate,
+                              json
+                            ]
+                          })                
+                        } else if (+json.chance >= 0.25 && +json.chance < 0.45) {
+                          setStrange(prevstate => {
+                            return [
+                              ...prevstate,
+                              json
+                            ]
+                          })  
+                        } else if (+json.chance < 0.25) {
+                          setError(prevstate => {
+                            return [
+                              ...prevstate,
+                              json
+                            ]
+                          })  
+                        }
+                    })
             })
         } else {
           alert('Данные не загружены')
