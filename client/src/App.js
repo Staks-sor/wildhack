@@ -36,10 +36,12 @@ const img = {
 
 function App() {
 
+    const [work, setWork] = React.useState(false);
     const [files, setFiles] = React.useState([]);
     const [success, setSuccess] = React.useState([]);
     const [error, setError] = React.useState([]);
     const [strange, setStrange] = React.useState([]);
+    const [type, setType] = React.useState('success');
 
     const {getRootProps, getInputProps} = useDropzone({
         onDrop: acceptedFiles => {
@@ -73,8 +75,29 @@ function App() {
         files.forEach(file => URL.revokeObjectURL(file.preview));
     }, [files]);
 
+    // function handlePreview(e) {
+    //   console.log(e)
+    //   if (e.currentTarget.style.position == 'fixed') {
+
+    //     // e.currentTarget.style.left = '0'
+    //     // e.currentTarget.style.top = '0'
+    //     // e.currentTarget.style.position = 'relative'
+    //     // e.currentTarget.style.transform = 'translateX(0%)'
+    //   } else {
+
+    //     e.currentTarget.style.position = 'fixed'
+      
+    //     // e.currentTarget.style.objectFit = 'scale-down'
+    //     // e.currentTarget.style.transform = 'translateX(-15%)'
+    //     // e.currentTarget.style.left = '50%'
+    //     // e.currentTarget.style.top = '20%'
+    //     // e.currentTarget.style.width = '100%'
+    //     // e.currentTarget.style.height = 'auto'
+    //   }
+    // }
 
     function handleSubmit() {
+
 
 
         let testJSON = {
@@ -84,46 +107,58 @@ function App() {
         }
 
         if (files?.length > 0) {
+          
+            setWork(true)
             files.forEach(file => {
                 let formData = new FormData()
 
                 formData.append('image', file)
 
-                fetch(`http://localhost:8000/images`, {
-                    method: "POST",
-                    body: formData
-                })
-                    .then(res => {
-                        return res.json()
-                    })
-                    .then(json => {
-                        console.log(json)
-                        if (+json.chance >= 0.45) {
-                          setSuccess(prevstate => {
-                            return [
-                              ...prevstate,
-                              json
-                            ]
-                          })                
-                        } else if (+json.chance >= 0.25 && +json.chance < 0.45) {
-                          setStrange(prevstate => {
-                            return [
-                              ...prevstate,
-                              json
-                            ]
-                          })  
-                        } else if (+json.chance < 0.25) {
-                          setError(prevstate => {
-                            return [
-                              ...prevstate,
-                              json
-                            ]
-                          })  
-                        }
-                    })
+                // fetch(`http://localhost:8000/images`, {
+                //     method: "POST",
+                //     body: formData
+                // })
+                //     .then(res => {
+                //         return res.json()
+                //     })
+                //     .then(json => {
+                //         console.log(json)
+                //         if (+json.chance >= 0.45) {
+                //           setSuccess(prevstate => {
+                //             return [
+                //               ...prevstate,
+                //               json
+                //             ]
+                //           })                
+                //         } else if (+json.chance >= 0.25 && +json.chance < 0.45) {
+                //           setStrange(prevstate => {
+                //             return [
+                //               ...prevstate,
+                //               json
+                //             ]
+                //           })  
+                //         } else if (+json.chance < 0.25) {
+                //           setError(prevstate => {
+                //             return [
+                //               ...prevstate,
+                //               json
+                //             ]
+                //           })  
+                //         }
+                //     })
             })
+        } else {
+          alert('Данные не загружены')
         }
 
+    }
+
+    function handleBack() {
+      setWork(false)
+      setStrange([])
+      setSuccess([])
+      setError([])
+      setFiles([])
     }
 
     return (
@@ -137,57 +172,95 @@ function App() {
                     <img src='croc.svg'/>
                 </div>
             </div>
-            <div className="main">
-                <div className="main_title">
-                    Программа для распознавания изображений животных
+            
+            <div className="main_title">
+                    Программа для распознавания животных
                 </div>
-                <div className="upload">
-                    <button onClick={handleSubmit}>Обработать</button>
-                    <div className="toolbar">
-                        Загружено: {files?.length} фото.
-                    </div>
-                    <section className="container">
-                        <div {...getRootProps({className: 'dropzone'})}>
-                            <input {...getInputProps()} />
-                            <p>Перетащите файлы в это окно или нажмите для выбора фото или видео...</p>
-                        </div>
-                        <aside style={thumbsContainer}>
-                            {thumbs}
-                        </aside>
-                    </section>
-                </div>
-            </div>
-            <div className="result">
-                <div className="main_title">
-                    Результат
-                </div>
-                <div className="result_preview">
-                    <div className="column error">
-                        <h3><i></i>Плохие изображения</h3>
-                        {
-                          error.map(item => (
-                            <div>{item?.chance}</div>
-                          ))
-                        }
-                    </div>
-                    <div className="column warning">
-                        <h3><i></i>Спорные изображения</h3>
-                        {
-                          strange.map(item => (
-                            <div>{item?.chance}</div>
-                          ))
-                        }
-                    </div>
-                    <div className="column success">
-                        <h3><i></i>Хорошие изображения</h3>
-                        {
-                          success.map(item => (
-                            <div>{item?.chance}</div>
-                          ))
-                        }
-                    </div>
-                </div>
-            </div>
+            {
+              !work ? (
+                <div className="main">
+                  <div className="upload">
+                      <button onClick={handleSubmit}>Обработать</button>
+                      <div className="toolbar">
+                          Загружено: {files?.length} фото.
+                      </div>
+                      <section className="container">
+                          <div {...getRootProps({className: 'dropzone'})}>
+                              <input {...getInputProps()} />
+                              <p>Перетащите файлы в это окно или нажмите для выбора фото или видео...</p>
+                          </div>
+                          <aside style={thumbsContainer}>
+                              {thumbs}
+                          </aside>
+                      </section>
+                  </div>
+              </div>
+              ) : (
+                <div className="result">
+                  
+                  <button onClick={handleBack}>Назад</button>
+                  <div className="main_title">
+                      Результат
+                  </div>
+                  <div className="result_preview">
+                      <div className={ type == 'success' ? "column success_checked" : "column success"} onClick={e => {setType('success')}}>
+                          <h3><i></i>Хорошие данные</h3>
+                      </div >
+                      <div className={ type == 'strange' ? "column warning_checked" : "column warning"} onClick={e => {setType('strange')}}>
+                          <h3><i></i>Спорные данные</h3>
+                      </div>
+                      <div className={ type == 'error' ? "column error_checked" : "column error"} onClick={e => {setType('error')}}>
+                          <h3><i></i>Плохие данные</h3>
+                      </div>
+                          
+                  </div>
+                  <h1>{type == 'success' ? 'Хорошие данные' : type == 'strange' ? 'Спорные данные' : 'Плохие данные'}</h1>
+                  {
+                            type == 'success' ? (
+                              
+                            <div className="result_images">
+                              {
+                                success.map(item => (
+                                  <div>
+                                    <img src={`http://localhost:8000/strange/${item?.filename}`}/>
+                                    <div className="chance success">Вероятность: {+item?.chance * 100}%</div>
+                                  </div>
+                                ))
+                              }
+                              
+                            </div>
+                            ) : type == 'strange' ? (
+                              
+                              <div className="result_images" >
+                                {
+                                  strange.map(item => (
+                                    <div>
+                                      <img src={`http://localhost:8000/strange/${item?.filename}`}/>
+                                      <div className="chance warning">Вероятность: {+item?.chance * 100}%</div>
+                                    </div>
+                                  ))
+                                }
+                                
+                              </div>
+                            ) : (
+                            
+                              <div className="result_images">
+                                {
+                                  error.map(item => (
+                                    <div>
+                                      <img src={`http://localhost:8000/error/${item?.filename}`}/>
+                                      <div className="chance error">Вероятность: {+item?.chance * 100}%</div>
+                                    </div>
+                                  ))
+                                }
+                                
+                              </div>
+                              )
+                          }
+              </div>
+              )
+            }
+            
         </div>
     );
 }
